@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: udagram-api-user
+  labels:
+    app: udagram-api-user
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: udagram-api-user
+  template:
+    metadata:
+      labels:
+        app: udagram-api-user
+    spec:
+      containers:
+      - name: udagram-api-user
+        image: hailec137/udagram-api-user:v1
+        ports:
+        - containerPort: 8080
+        envFrom:  
+        - configMapRef:
+            name: env-config
+        - secretRef:
+            name: env-secret
+        volumeMounts:
+        - name: aws-credentials
+          mountPath: "$HOME/.aws:/root/.aws"
+          readOnly: true        
+      restartPolicy: Always
+      volumes:
+      - name: aws-credentials
+        secret:
+          secretName: aws-secret

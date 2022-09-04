@@ -19,3 +19,9 @@ spec:
         image: hailec137/udagram-api-feed:v1
         ports:
         - containerPort: 8080
+        envFrom:  
+        - configMapRef:
+            name: env-config
+        - secretRef:
+            name: env-secret
+        

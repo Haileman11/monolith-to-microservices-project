@@ -5,7 +5,7 @@ metadata:
   labels:
     app: udagram-frontend
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: udagram-frontend
@@ -19,3 +19,15 @@ spec:
         image: hailec137/udagram-frontend:v1
         ports:
         - containerPort: 80
+        envFrom:  
+        - configMapRef:
+            name: env-config        
+        volumeMounts:
+        - name: aws-secret
+          mountPath: "~/.aws/"
+          readOnly: true        
+      restartPolicy: Always
+      volumes:
+      - name: aws-secret
+        secret:
+          secretName: aws-secret
