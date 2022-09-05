@@ -14,3 +14,4 @@ kubectl apply -f udagram-api-user-service.yaml
 kubectl apply -f udagram-frontend-service.yaml
 kubectl apply -f reverseproxy-service.yaml
 # Do the same for other three service files
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
